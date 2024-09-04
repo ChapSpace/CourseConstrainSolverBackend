@@ -22,7 +22,7 @@ python -m venv .venv
 
 Once you've created your virtual environment, you will need to activate it whenever you want to run your code
 ```
-.venv\Scripts\activate
+venv\Scripts\activate
 ```
 
 Once you've activated your virtual environment, install the dependencies (you don't need to run this unless we add a new dependency)
