@@ -22,6 +22,7 @@ class GER(Enum):
     COLLEGE = "college"
     LANGUAGE = "language"
 
+
 class Grade(Enum):
     A_PLUS = 4.3
     A = 4.0
