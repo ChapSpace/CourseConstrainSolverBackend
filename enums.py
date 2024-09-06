@@ -6,6 +6,7 @@ class Quarter(Enum):
     SPRING = 3
     SUMMER = 4
 
+
 class GER(Enum):
     WAY-A-II = "way a-ii"
     WAY-AQR = "way aqr"
