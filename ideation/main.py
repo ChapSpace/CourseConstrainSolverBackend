@@ -15,6 +15,8 @@ def main():
     for course in degreeProgram.get_required_courses():
         s.add(Or([Int(course.get_name()) == quarter for quarter in course.get_quarters()]))
     
+     
+    
     print(s.check())
     print(s.model())
    
