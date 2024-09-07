@@ -40,3 +40,7 @@ class Grade(Enum):
     INCOMPLETE = 0.0
     CREDIT = "credit"
     NO_CREDIT = "no credit"
+
+class Grading(Enum):
+    LETTER = "letter"
+    C_NC = "credit/no credit"
