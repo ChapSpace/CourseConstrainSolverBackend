@@ -1,10 +1,10 @@
 from enum import Enum
 
 class Quarter(Enum):
-    FALL = 1
-    WINTER = 2
-    SPRING = 3
-    SUMMER = 4
+    FALL = 0
+    WINTER = 1
+    SPRING = 2
+    SUMMER = 3
 
 
 class GER(Enum):
