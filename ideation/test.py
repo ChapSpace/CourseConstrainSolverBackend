@@ -16,26 +16,16 @@ def main():
     
     # Creating a dictionary of Int() z3 variables for subsequent access
     # Dynamically creating z3 Int() variables from degree program dict
+    
     degreeCourses: dict[Int(): list[int]] = {}
     for course in degreeProgram.get_required_courses():
         degreeCourses[Int(course.get_name())] = course.get_quarters()
-    
     print(degreeCourses)
-    
-    # Dynamically adding the constraint that each class must be taken at least once
-    for courseVar, quartersOffered in degreeCourses.items():
-        s.add(Or([courseVar == quarter for quarter in quartersOffered])) 
-        
-    # Dynamically adding the constraint that we can have no more than 2 classes per quarter
-    for quarter in Quarters:
-        load = sum([If(courseVar == quarter.value, 1, 0) for courseVar in degreeCourses])
-        s.add(load <= 2)
-    
-    
-    print(s.check())
-    print(s.model())
-   
-    
-if __name__ == "__main__":
-    main()
+    for key in degreeCourses:
+        print(type(key))
 
+main()
+    
+    
+
+   
