@@ -1,7 +1,8 @@
 class Course:
     
-    def __init__(self, name: str, quarters: list[int]) -> None:
+    def __init__(self, name: str, units: int, quarters: list[int]) -> None:
         self.__name = name
+        self.__units = units
         self.__quarters = quarters
         
     # To string
@@ -11,6 +12,8 @@ class Course:
     # Accessors
     def get_name(self):
         return self.__name
+    def get_units(self):
+        return self.__units
     def get_quarters(self):
         return self.__quarters
     

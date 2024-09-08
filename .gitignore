@@ -1,2 +1,5 @@
 .venv
-ideation/classes/__pycache__
+ideation/classes/__pycache__/
+
+# Ignore compiled Python files
+*.pyc
