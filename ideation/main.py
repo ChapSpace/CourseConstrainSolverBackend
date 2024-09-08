@@ -28,8 +28,8 @@ def main():
         
     # Dynamically adding the constraint that we can have no more than 2 classes per quarter
     for quarter in Quarters:
-        load = sum([If(courseVar == quarter.value, 1, 0) for courseVar in degreeCourses])
-        s.add(load <= 2)
+        load = sum([If(courseVar == quarter.value, course.get_units(), 0) for courseVar, course in degreeCourses.items()])
+        s.add(load <= 10)
     
     
     print(s.check())
