@@ -1,5 +1,5 @@
 from typing import List, Optional, Union
-from enums import Quarter, GER, Grade
+from classes.components.enums import Quarter, GER, Grade
 
 class Course:
     """
@@ -22,10 +22,10 @@ class Course:
     """
     def __init__(
         self, 
-        code: str, 
-        title: str,
-        units: Union[int, tuple[int, int]],
-        description: str,
+        code: str = None, 
+        title: str = None,
+        units: Union[int, tuple[int, int]] = None,
+        description: str = None,
         prereqs: Optional[List['Course']] = None,
         coreqs: Optional[List['Course']] = None,
         offered_quarters: Optional[List[Quarter]] = None,
@@ -51,7 +51,11 @@ class Course:
         self._grading = grading
 
     def __str__(self) -> str:
-        return f"{self.code}: {self.title}"
+        return f"{self._code}: {self._title}"
+
+    @property
+    def code(self) -> str:
+        return self._code
     
     @property
     def units(self) -> Union[int, tuple[int, int]]:
