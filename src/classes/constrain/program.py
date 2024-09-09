@@ -1,4 +1,4 @@
-from src.classes.components.course import Course
+from classes.components.course import Course
 from typing import List
 
 class Program:

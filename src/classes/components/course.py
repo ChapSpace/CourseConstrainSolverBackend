@@ -1,5 +1,5 @@
 from typing import List, Optional, Union
-from src.classes.components.enums import Quarter, GER, Grade
+from classes.components.enums import Quarter, GER, Grade
 
 class Course:
     """
@@ -51,7 +51,7 @@ class Course:
         self._grading = grading
 
     def __str__(self) -> str:
-        return f"{self.code}: {self.title}"
+        return f"{self._code}: {self._title}"
 
     @property
     def code(self) -> str:

@@ -1,0 +1,21 @@
+from classes.solver_config import SolverConfig
+from classes.constrain.program import Program
+from classes.constrain.profile import Profile
+from classes.components.course import Course
+from classes.components.enums import Quarter
+
+def main():
+    
+    degreeProgram = Program([Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
+                            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
+                            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
+                            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER])])
+
+    scheduleSolver = SolverConfig(degreeProgram)
+    scheduleSolver.add_required_courses_constraints()
+    scheduleSolver.solve_constraints()
+
+    
+
+if __name__ == '__main__':
+    main()
