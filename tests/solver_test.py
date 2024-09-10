@@ -8,10 +8,14 @@ from z3 import sat, unsat
 
 def test_add_required_courses_constraints_sat():
     
-    degreeProgram = Program(required_courses=[Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
-                            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
-                            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
-                            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER])])
+    degreeProgram = Program(
+        required_courses=[
+            Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
+            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
+            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
+            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER]),
+        ]
+    )
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram)
@@ -21,10 +25,14 @@ def test_add_required_courses_constraints_sat():
     
 def test_add_required_courses_constraints_one_per_quarter_sat():
     
-    degreeProgram = Program(required_courses=[Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
-                            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
-                            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
-                            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER])])
+    degreeProgram = Program(
+        required_courses=[
+            Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
+            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
+            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
+            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER]),
+        ]
+    )
     
     constrainProfile = Profile(max_quarter_units=5)
     
@@ -37,10 +45,14 @@ def test_add_required_courses_constraints_one_per_quarter_sat():
     
 def test_add_required_courses_constraints_one_per_quarter_unsat():
     
-    degreeProgram = Program(required_courses=[Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
-                            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
-                            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
-                            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER])])
+    degreeProgram = Program(
+        required_courses=[
+            Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
+            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
+            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
+            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER]),
+        ]
+    )
     
     constrainProfile = Profile(max_quarter_units=4)
     
@@ -53,14 +65,18 @@ def test_add_required_courses_constraints_one_per_quarter_unsat():
 
 def test_add_required_courses_constraints_multiple_per_quarter_sat():
     
-    degreeProgram = Program(required_courses=[Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
-                            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
-                            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
-                            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER]),
-                            Course(code='C5', units=5, offered_quarters=[Quarter.FALL]),
-                            Course(code='C6', units=5, offered_quarters=[Quarter.WINTER]),
-                            Course(code='C7', units=5, offered_quarters=[Quarter.SPRING]),
-                            Course(code='C8', units=5, offered_quarters=[Quarter.SUMMER])])
+    degreeProgram = Program(
+        required_courses=[
+            Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
+            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
+            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
+            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER]),
+            Course(code='C5', units=5, offered_quarters=[Quarter.FALL]),
+            Course(code='C6', units=5, offered_quarters=[Quarter.WINTER]),
+            Course(code='C7', units=5, offered_quarters=[Quarter.SPRING]),
+            Course(code='C8', units=5, offered_quarters=[Quarter.SUMMER]),
+        ]
+    )
     
     constrainProfile = Profile(max_quarter_units=10)
     
@@ -73,14 +89,18 @@ def test_add_required_courses_constraints_multiple_per_quarter_sat():
     
 def test_add_required_courses_constraints_multiple_per_quarter_unsat():
     
-    degreeProgram = Program(required_courses=[Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
-                            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
-                            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
-                            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER]),
-                            Course(code='C5', units=5, offered_quarters=[Quarter.FALL]),
-                            Course(code='C6', units=5, offered_quarters=[Quarter.WINTER]),
-                            Course(code='C7', units=6, offered_quarters=[Quarter.SPRING]),
-                            Course(code='C8', units=5, offered_quarters=[Quarter.SUMMER])])
+    degreeProgram = Program(
+        required_courses=[
+            Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
+            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
+            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
+            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER]),
+            Course(code='C5', units=5, offered_quarters=[Quarter.FALL]),
+            Course(code='C6', units=5, offered_quarters=[Quarter.WINTER]),
+            Course(code='C7', units=6, offered_quarters=[Quarter.SPRING]),
+            Course(code='C8', units=5, offered_quarters=[Quarter.SUMMER]),
+        ]
+    )
     
     constrainProfile = Profile(max_quarter_units=10)
     
