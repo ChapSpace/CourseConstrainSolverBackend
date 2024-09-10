@@ -15,6 +15,18 @@ git checkout -b ali/test-cases
 
 We should strive to have PRs reviewed by one other member on the team before they are ready to be merged into main.
 
+## Testing
+Before running tests, you need to set the `PYTHONPATH` to include the `src/` directory. This will allow Python to locate the modules in `src/` when importing to run tests in `test/`.
+
+### Linux/macOS
+Run the following command in the terminal from the root of the repository:
+
+source ./test_setup.sh
+
+### Windows
+Run the following command in the terminal from the root of the repository:
+
+test_setup.bat
 
 ## Prerequisites
 

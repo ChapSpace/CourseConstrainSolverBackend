@@ -19,7 +19,7 @@ def main():
     scheduleSolver.add_quarter_load_constraints()
     
     # Solving
-    scheduleSolver.solve_constraints()
+    print(scheduleSolver.check_solvable())
 
     
 
