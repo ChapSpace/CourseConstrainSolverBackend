@@ -20,12 +20,9 @@ class SolverConfig:
         for course in self._program.required_courses:
             self._course_dict[Int(course.code)] = course
     
-    # Solver
-    def solve_constraints(self):
-        res = self._solver.check()
-        print(res)
-        if res == sat:
-            print(self._solver.model())
+    # Returns if the problem is solvable
+    def check_solvable(self):
+        return self._solver.check()
         
     # Add required courses to solver
     def add_required_courses_constraints(self):
