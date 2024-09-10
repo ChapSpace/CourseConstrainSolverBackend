@@ -6,11 +6,18 @@ from classes.components.enums import Quarter
 from typing import Dict
 
 class SolverConfig:
-    
-    def __init__(self, 
-                 program: Program, 
-                 profile: Profile = None):
-        
+    """
+    Configures the solver with required courses and constraints.
+
+    Attributes:
+        program (Program): Degree program.
+        profile (Profile): Student profile.
+    """
+    def __init__(
+        self, 
+        program: Program, 
+        profile: Profile = None
+    ) -> None:
         self._program = program
         self._profile = profile
         
@@ -26,14 +33,12 @@ class SolverConfig:
         
     # Add required courses to solver
     def add_required_courses_constraints(self):
-        
         for courseVar, course in self._course_dict.items():
             self._solver.add(Or([courseVar == quarter.value for quarter in course.offered_quarters])) 
     
     # Add prerequisite constraints to solver
     def add_prerequisite_constraints(self):
         pass
-        
 
     # Add quarter load constraints to solver
     def add_quarter_load_constraints(self):

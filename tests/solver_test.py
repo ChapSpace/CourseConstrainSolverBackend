@@ -90,6 +90,3 @@ def test_add_required_courses_constraints_multiple_per_quarter_unsat():
     scheduleSolver.add_quarter_load_constraints()
     
     assert scheduleSolver.check_solvable() == unsat
-    
-    
-    
