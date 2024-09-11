@@ -19,11 +19,17 @@ def main():
     MATH151 = Course(code='MATH151', units=4, offered_quarters=[Quarter.WINTER], prereqs=[MATH52, MATH115])
     MATH136 = Course(code='MATH136', units=4, offered_quarters=[Quarter.FALL], prereqs=[MATH151])
 
+    # Setting up constraint objects
+    degreeProgram = Program(required_courses=[MATH51, MATH52, MATH56, MATH115, MATH151, MATH136])
+    constrainProfile = Profile(max_quarter_units=20)
 
-    # Set up the degree program
-    degreeProgram = Program(required_courses=[CS106B, CS109, CS229])
+    # Creating and configuring solver
+    scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
+    scheduleSolver.add_required_courses_constraints()
+    scheduleSolver.add_prerequisite_constraints()
+    scheduleSolver.add_quarter_load_constraints()
 
-    constrainProfile = Profile
+    print(scheduleSolver.check_solvable())
 
 
     """
