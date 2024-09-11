@@ -1,11 +1,26 @@
 from enum import Enum
 
 class Quarter(Enum):
-    FALL = 0
-    WINTER = 1
-    SPRING = 2
-    SUMMER = 3
-
+    
+    FRESH_FALL = 0
+    FRESH_WINTER = 1
+    FRESH_SPRING = 2
+    FRESH_SUMMER = 3
+    
+    SOPH_FALL = 4
+    SOPH_WINTER = 5
+    SOPH_SPRING = 6
+    SOPH_SUMMER = 7
+    
+    JUNIOR_FALL = 8
+    JUNIOR_WINTER = 9
+    JUNIOR_SPRING = 10
+    JUNIOR_SUMMER = 11
+    
+    SENIOR_FALL = 12
+    SENIOR_WINTER = 13
+    SENIOR_SPRING = 14
+    SENIOR_SUMMER = 15
 
 class GER(Enum):
     WAY_A_II = "way a-ii"
