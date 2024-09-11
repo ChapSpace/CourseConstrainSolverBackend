@@ -11,16 +11,13 @@ def main():
     """
 
     # Setting up classes
-    MATH21 = Course(code='MATH21', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER, Quarter.SPRING])
-    MATH51 = Course(code='MATH51', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER, Quarter.SPRING], prereqs=[MATH21])
-    MATH52 = Course(code='MATH52', units=5, offered_quarters=[Quarter.WINTER, Quarter.SPRING], prereqs=[MATH51])
-    MATH56 = Course(code='MATH56', units=4, offered_quarters=[Quarter.FALL, Quarter.WINTER, Quarter.SPRING])
-    MATH115 = Course(code='MATH115', units=4, offered_quarters=[Quarter.FALL, Quarter.WINTER, Quarter.SPRING], prereqs=[MATH51, MATH56])
-    MATH151 = Course(code='MATH151', units=4, offered_quarters=[Quarter.WINTER], prereqs=[MATH52, MATH115])
-    MATH136 = Course(code='MATH136', units=4, offered_quarters=[Quarter.FALL], prereqs=[MATH151])
+    C1 = Course(code='C1', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER])
+    C2 = Course(code='C2', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER])
+    C3 = Course(code='C3', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER, Quarter.SPRING], prereqs=[C1, C2])
+    C4 = Course(code='C4', units=5, offered_quarters=[Quarter.SPRING], prereqs=[C3])
 
     # Setting up constraint objects
-    degreeProgram = Program(required_courses=[MATH51, MATH52, MATH56, MATH115, MATH151, MATH136])
+    degreeProgram = Program(required_courses=[C1, C2, C3, C4])
     constrainProfile = Profile(max_quarter_units=20)
 
     # Creating and configuring solver
@@ -29,7 +26,19 @@ def main():
     scheduleSolver.add_prerequisite_constraints()
     scheduleSolver.add_quarter_load_constraints()
 
+    #print(scheduleSolver.prereq_graph)
+
+    print(scheduleSolver.get_constraints())
+
     print(scheduleSolver.check_solvable())
+
+    schedule = scheduleSolver.solve()
+
+    if schedule:
+        for course_code, quarter in schedule.items():
+            print(f"{course_code} is scheduled for {quarter}")
+    else:
+        print("No valid schedule found")
 
 
     """
