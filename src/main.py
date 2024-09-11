@@ -6,11 +6,51 @@ from classes.components.enums import Quarter
 
 def main():
     
+    """
+    Setting up a test program for prerequisite requirements before writing unit tests.
+    """
+
+    # Setting up classes
+    C1 = Course(code='C1', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER])
+    C2 = Course(code='C2', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER])
+    C3 = Course(code='C3', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER, Quarter.SPRING], prereqs=[C1, C2])
+    C4 = Course(code='C4', units=5, offered_quarters=[Quarter.SPRING], prereqs=[C3])
+
+    # Setting up constraint objects
+    degreeProgram = Program(required_courses=[C1, C2, C3, C4])
+    constrainProfile = Profile(max_quarter_units=20)
+
+    # Creating and configuring solver
+    scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
+    scheduleSolver.add_required_courses_constraints()
+    scheduleSolver.add_prerequisite_constraints()
+    scheduleSolver.add_quarter_load_constraints()
+
+    #print(scheduleSolver.prereq_graph)
+
+    print(scheduleSolver.get_constraints())
+
+    print(scheduleSolver.check_solvable())
+
+    schedule = scheduleSolver.solve()
+
+    if schedule:
+        for course_code, quarter in schedule.items():
+            print(f"{course_code} is scheduled for {quarter}")
+    else:
+        print("No valid schedule found")
+
+
+    """
     # Arranging constraint objects
-    degreeProgram = Program(required_courses=[Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
-                            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
-                            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
-                            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER])])
+    degreeProgram = Program(
+        required_courses=[
+            Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
+            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
+            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
+            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER])
+        ]
+    )
     constrainProfile = Profile(max_quarter_units=5)
 
     # Creating and configuring solver
@@ -20,8 +60,8 @@ def main():
     
     # Solving
     print(scheduleSolver.check_solvable())
+    """
 
     
-
 if __name__ == '__main__':
     main()
