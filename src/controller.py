@@ -2,9 +2,23 @@ from flask import Flask, jsonify
 from classes.constrain.program import Program
 from classes.constrain.profile import Profile
 from classes.solver_config import SolverConfig
+from pymongo import MongoClient
 
 # Mock database
 from mock_db import MockDB
+
+# Database testing
+connection_string = "mongodb+srv://ericcui:a3tgSg0tVBJ9bhg5@cluster0.r6ela.mongodb.net/"
+client = MongoClient(connection_string)
+
+db = client.test_DB
+collection = db.test_collection
+
+user_document = {
+    "username": "john_doe",
+    "email": "john.doe@example.com",
+    "age": 28
+}
 
 app = Flask(__name__)
 
@@ -34,6 +48,15 @@ def solve_user_schedule():
     
     # Returning
     return jsonify({"schedule": scheduleString}), 200
+
+
+@app.post('/post-test')
+def post_test():
+    
+    inserted_id = collection.insert_one(user_document).inserted_id
+    inserted_string = f"Inserted ID: {inserted_id}"
+    
+    return jsonify({"result": inserted_string}), 200
     
 
 app.run(debug=True)
