@@ -11,10 +11,10 @@ def main():
     """
 
     # Setting up classes
-    C1 = Course(code='C1', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER])
-    C2 = Course(code='C2', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER])
-    C3 = Course(code='C3', units=5, offered_quarters=[Quarter.FALL, Quarter.WINTER, Quarter.SPRING], prereqs=[C1, C2])
-    C4 = Course(code='C4', units=5, offered_quarters=[Quarter.SPRING], prereqs=[C3])
+    C1 = Course(code='C1', units=5, offered_quarters=[Quarter.FRESH_FALL, Quarter.FRESH_WINTER])
+    C2 = Course(code='C2', units=5, offered_quarters=[Quarter.FRESH_FALL, Quarter.FRESH_WINTER])
+    C3 = Course(code='C3', units=5, offered_quarters=[Quarter.FRESH_FALL, Quarter.FRESH_WINTER, Quarter.FRESH_SPRING], prereqs=[C1, C2])
+    C4 = Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SPRING], prereqs=[C3])
 
     # Setting up constraint objects
     degreeProgram = Program(required_courses=[C1, C2, C3, C4])
