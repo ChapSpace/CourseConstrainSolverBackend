@@ -15,10 +15,10 @@ def test_add_required_courses_constraints_sat():
             Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SUMMER]),
         ]
     )
-    
+    constrainProfile = Profile()
+
     # Creating and configuring solver
-    scheduleSolver = SolverConfig(program=degreeProgram)
-    scheduleSolver.add_required_courses_constraints()
+    scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
     
     assert scheduleSolver.check_solvable() == sat
     
@@ -36,8 +36,6 @@ def test_add_required_courses_constraints_one_per_quarter_sat():
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_quarter_load_constraints()
     
     assert scheduleSolver.check_solvable() == sat
     
@@ -55,8 +53,6 @@ def test_add_required_courses_constraints_one_per_quarter_unsat():
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_quarter_load_constraints()
     
     assert scheduleSolver.check_solvable() == unsat
 
@@ -78,9 +74,7 @@ def test_add_required_courses_constraints_multiple_per_quarter_sat():
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_quarter_load_constraints()
-    
+
     assert scheduleSolver.check_solvable() == sat
     
 def test_add_required_courses_constraints_multiple_per_quarter_unsat():
@@ -101,8 +95,6 @@ def test_add_required_courses_constraints_multiple_per_quarter_unsat():
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_quarter_load_constraints()
     
     assert scheduleSolver.check_solvable() == unsat
 
@@ -117,8 +109,6 @@ def test_add_prerequisite_constraints_simple_sat():
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_prerequisite_constraints()
     
     assert scheduleSolver.check_solvable() == sat
 
@@ -134,9 +124,24 @@ def test_add_prerequisite_constraints_simple_unsat():
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
     
-    # Adding a constraint that makes the problem unsolvable
-    scheduleSolver.add_prerequisite_constraints()
+    assert scheduleSolver.check_solvable() == unsat
+
+def test_changing_profile_max_quarter_units_sat_unsat():
+    C1 = Course(code='C1', units=5, offered_quarters=[Quarter.FRESH_FALL, Quarter.FRESH_WINTER])
+    C2 = Course(code='C2', units=5, offered_quarters=[Quarter.FRESH_FALL, Quarter.FRESH_WINTER])
+    C3 = Course(code='C3', units=5, offered_quarters=[Quarter.FRESH_FALL, Quarter.FRESH_WINTER, Quarter.FRESH_SPRING], prereqs=[C1, C2])
+    C4 = Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SPRING], prereqs=[C3])
+    
+    degreeProgram = Program(required_courses=[C1, C2, C3, C4])
+    constrainProfile = Profile(max_quarter_units=20)
+    
+    # Creating and configuring solver
+    scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
+    
+    assert scheduleSolver.check_solvable() == sat
+    
+    constrainProfile.max_quarter_units = 5
+    scheduleSolver.update()
     
     assert scheduleSolver.check_solvable() == unsat

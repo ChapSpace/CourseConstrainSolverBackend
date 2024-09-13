@@ -22,13 +22,10 @@ def main():
 
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_prerequisite_constraints()
-    scheduleSolver.add_quarter_load_constraints()
 
     #print(scheduleSolver.prereq_graph)
 
-    print(scheduleSolver.get_constraints())
+    #print(scheduleSolver.get_assertions())
 
     print(scheduleSolver.check_solvable())
 
@@ -40,27 +37,17 @@ def main():
     else:
         print("No valid schedule found")
 
+    constrainProfile.max_quarter_units = 5
 
-    """
-    # Arranging constraint objects
-    degreeProgram = Program(
-        required_courses=[
-            Course(code='C1', units=5, offered_quarters=[Quarter.FALL]),
-            Course(code='C2', units=5, offered_quarters=[Quarter.WINTER]),
-            Course(code='C3', units=5, offered_quarters=[Quarter.SPRING]),
-            Course(code='C4', units=5, offered_quarters=[Quarter.SUMMER])
-        ]
-    )
-    constrainProfile = Profile(max_quarter_units=5)
-
-    # Creating and configuring solver
-    scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_quarter_load_constraints()
-    
-    # Solving
     print(scheduleSolver.check_solvable())
-    """
+
+    schedule = scheduleSolver.solve()
+
+    if schedule:
+        for course_code, quarter in schedule.items():
+            print(f"{course_code} is scheduled for {quarter}")
+    else:
+        print("No valid schedule found")
 
     
 if __name__ == '__main__':
