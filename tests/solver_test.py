@@ -142,5 +142,6 @@ def test_changing_profile_max_quarter_units_sat_unsat():
     assert scheduleSolver.check_solvable() == sat
     
     constrainProfile.max_quarter_units = 5
+    scheduleSolver.update()
     
     assert scheduleSolver.check_solvable() == unsat

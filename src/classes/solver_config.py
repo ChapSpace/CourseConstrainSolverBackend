@@ -48,9 +48,7 @@ class SolverConfig:
             "required_courses": self._required_courses,
         }
 
-        self._profile.add_observer(self._update)
-
-        self._update()
+        self.update()
 
     @property
     def course_dict(self) -> Dict[int, Course]:
@@ -84,7 +82,7 @@ class SolverConfig:
         else:
             return None
 
-    def _update(self) -> None:
+    def update(self) -> None:
         """Updates the constraints."""
         self._solver.reset()
         for key, func in self._modifiers.items():
