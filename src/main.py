@@ -22,13 +22,22 @@ def main():
 
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_prerequisite_constraints()
-    scheduleSolver.add_quarter_load_constraints()
 
     #print(scheduleSolver.prereq_graph)
 
-    print(scheduleSolver.get_constraints())
+    #print(scheduleSolver.get_assertions())
+
+    print(scheduleSolver.check_solvable())
+
+    schedule = scheduleSolver.solve()
+
+    if schedule:
+        for course_code, quarter in schedule.items():
+            print(f"{course_code} is scheduled for {quarter}")
+    else:
+        print("No valid schedule found")
+
+    constrainProfile.max_quarter_units = 5
 
     print(scheduleSolver.check_solvable())
 
