@@ -1,5 +1,9 @@
+# Ignore virtual environment files
 .venv
 
 # Ignore pycache and compiled python bytecode files
 __pycache__/
 *.pyc
+
+# Ignore VSCode generated files
+.vscode
