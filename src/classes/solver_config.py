@@ -85,7 +85,7 @@ class SolverConfig:
     def update(self) -> None:
         """Updates the constraints."""
         self._solver.reset()
-        for key, func in self._modifiers.items():
+        for func in self._modifiers.values():
             func()
     
     def _max_quarter_units(self) -> None:
