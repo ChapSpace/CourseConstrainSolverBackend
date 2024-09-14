@@ -1,3 +1,5 @@
+from typing import Dict, Any
+
 class Profile:
     """User-set constraints for the solver"""
     def __init__(
@@ -7,6 +9,12 @@ class Profile:
     ):
         self._max_quarter_units = max_quarter_units
         self._min_quarter_units = min_quarter_units
+        
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "max_quarter_units": self._max_quarter_units,
+            "min_quarter_units": self._min_quarter_units
+        }
         
     @property
     def max_quarter_units(self) -> int:
