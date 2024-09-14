@@ -56,10 +56,16 @@ def post_test():
     db = client.test_DB
     collection = db.test_collection
     
-    course = Course(code='Code', offered_quarters=[Quarter.FRESH_FALL, Quarter.FRESH_WINTER])
-    course_insert = course.to_dict()
+    # Setting up classes
+    C1 = Course(code='C1', units=5, offered_quarters=[Quarter.FRESH_FALL])
+    C2 = Course(code='C2', units=5, offered_quarters=[Quarter.FRESH_WINTER])
+    C3 = Course(code='C3', units=5, offered_quarters=[Quarter.FRESH_SPRING])
+    C4 = Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SUMMER])
     
-    inserted_id = collection.insert_one(course_insert).inserted_id
+    program = Program(required_courses=[C1, C2, C3, C4])
+    program_insert = program.to_dict()
+    
+    inserted_id = collection.insert_one(program_insert).inserted_id
     inserted_string = f"Inserted ID: {inserted_id}"
     
     return jsonify({"result": inserted_string}), 200
