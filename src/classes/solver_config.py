@@ -32,7 +32,7 @@ class SolverConfig:
         self._program = program
         self._profile = profile
 
-        self._course_dict: Dict[int, Course] = {}
+        self._course_dict: Dict[Int, Course] = {}
         for course in self._program.required_courses:
             self._course_dict[Int(course.code)] = course
 
