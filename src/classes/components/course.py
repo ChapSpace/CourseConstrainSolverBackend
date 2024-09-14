@@ -1,4 +1,4 @@
-from typing import List, Optional, Union
+from typing import List, Optional, Union, Dict, Any
 from classes.components.enums import Quarter, GER, Grade
 
 class Course:
@@ -52,6 +52,24 @@ class Course:
 
     def __str__(self) -> str:
         return f"{self._code}: {self._title}"
+    
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "code": self._code,
+            "title": self._title,
+            "units": self._units,
+            "description": self._description,
+            "prereqs": self._prereqs,
+            "coreqs": self._coreqs,
+            "offered_quarters": self._offered_quarters,
+            "instructors": self._instructors,
+            "median_hrs": self._median_hrs,
+            "median_grade": self._median_grade,
+            "percent_A_A_plus": self._percent_A_A_plus,
+            "ug_reqs": self.ug_reqs,
+            "grading": self._grading
+        }
+        
 
     @property
     def code(self) -> str:
