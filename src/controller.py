@@ -3,6 +3,8 @@ from classes.constrain.program import Program
 from classes.constrain.profile import Profile
 from classes.solver_config import SolverConfig
 from pymongo import MongoClient
+from classes.components.course import Course
+from classes.components.enums import Quarter
 import json
 
 # Mock database
@@ -18,15 +20,6 @@ app_settings = load_app_settings()
 connection_string = app_settings["DatabaseConnection"]["ConnectionString"]
 client = MongoClient(connection_string)
 
-# Accessing DB and collection
-db = client.test_DB
-collection = db.test_collection
-
-user_document = {
-    "username": "john_doe",
-    "email": "john.doe@example.com",
-    "age": 28
-}
 
 app = Flask(__name__)
 
@@ -59,11 +52,17 @@ def solve_user_schedule():
 @app.post('/post-test')
 def post_test():
     
-    inserted_id = collection.insert_one(user_document).inserted_id
+    # Accessing DB and collection
+    db = client.test_DB
+    collection = db.test_collection
+    
+    course = Course(code='Code', offered_quarters=[Quarter.FRESH_FALL, Quarter.FRESH_WINTER])
+    course_insert = course.to_dict()
+    
+    inserted_id = collection.insert_one(course_insert).inserted_id
     inserted_string = f"Inserted ID: {inserted_id}"
     
     return jsonify({"result": inserted_string}), 200
-    
 
 app.run(debug=True)
     

@@ -61,7 +61,7 @@ class Course:
             "description": self._description,
             "prereqs": self._prereqs,
             "coreqs": self._coreqs,
-            "offered_quarters": self._offered_quarters,
+            "offered_quarters": [quarter.name for quarter in self._offered_quarters],
             "instructors": self._instructors,
             "median_hrs": self._median_hrs,
             "median_grade": self._median_grade,
