@@ -1,5 +1,5 @@
 from typing import List, Optional, Union, Dict, Any
-from classes.components.enums import Quarter, GER, Grade
+from classes.components.enums import Quarter, GER, Grade, Grading
 
 class Course:
     """
@@ -26,15 +26,15 @@ class Course:
         title: str = None,
         units: Union[int, tuple[int, int]] = None,
         description: str = None,
-        prereqs: Optional[List['Course']] = None,
-        coreqs: Optional[List['Course']] = None,
-        offered_quarters: Optional[List[Quarter]] = None,
-        instructors: Optional[List[List[str]]] = None,
-        median_hrs: Union[int, float] = 0,
+        prereqs: Optional[List['Course']] = [],
+        coreqs: Optional[List['Course']] = [],
+        offered_quarters: Optional[List[Quarter]] = [],
+        instructors: Optional[List[str]] = [],
+        median_hrs: Union[int, float] = None,
         median_grade: Optional[Grade] = None,
         percent_A_A_plus: Optional[Union[int, float]] = None,
-        ug_reqs: Optional[List[GER]] = None,
-        grading: Union[Grade, tuple[Grade, Grade]] = None
+        ug_reqs: Optional[List[GER]] = [],
+        grading: Optional[Grading] = None
     ) -> None:
         self._code = code
         self._title = title
@@ -59,15 +59,15 @@ class Course:
             "title": self._title,
             "units": self._units,
             "description": self._description,
-            "prereqs": self._prereqs,
-            "coreqs": self._coreqs,
+            "prereqs": [course.to_dict() for course in self._prereqs],
+            "coreqs": [course.to_dict() for course in self._coreqs],
             "offered_quarters": [quarter.name for quarter in self._offered_quarters],
             "instructors": self._instructors,
             "median_hrs": self._median_hrs,
-            "median_grade": self._median_grade,
+            "median_grade": getattr(self._median_grade, "name", None),
             "percent_A_A_plus": self._percent_A_A_plus,
-            "ug_reqs": self.ug_reqs,
-            "grading": self._grading
+            "ug_reqs": [req.name for req in self._ug_reqs],
+            "grading": getattr(self._grading, "name", None)
         }
         
 
