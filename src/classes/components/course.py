@@ -69,6 +69,24 @@ class Course:
             "ug_reqs": [req.name for req in self._ug_reqs],
             "grading": getattr(self._grading, "name", None)
         }
+    
+    def from_dict(cls, dict) -> 'Course':
+        return cls(
+            code=dict.get("code"),
+            title=dict.get("title"),
+            units=dict.get("units"),
+            description=dict.get("description"),
+            prereqs=[], # Populate
+            coreqs=[], # Populate
+            offered_quarters=[], # Populate
+            instructors=dict.get("instructors"),
+            median_hrs=dict.get("median_hrs"),
+            median_grade=None, # Populate,
+            percent_A_A_plus=dict.get("percent_A_A_plus"),
+            ug_reqs=[], # Populate
+            grading=None # Populate
+        )
+        
         
 
     @property
