@@ -241,11 +241,12 @@ def test_program_to_dict():
     
 def test_profile_to_dict():
     
-    profile = Profile(max_quarter_units=20, min_quarter_units=12)
+    profile = Profile(id="ID", max_quarter_units=20, min_quarter_units=12)
     
     profile_dict = profile.to_dict()
     
     expected_dict = {
+        "id": "ID",
         "max_quarter_units": 20,
         "min_quarter_units": 12
     }

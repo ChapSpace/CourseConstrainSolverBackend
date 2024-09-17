@@ -16,7 +16,7 @@ def test_add_required_courses_constraints_sat():
             Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SUMMER]),
         ]
     )
-    constrainProfile = Profile()
+    constrainProfile = Profile(id="ID")
 
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
@@ -34,7 +34,7 @@ def test_add_required_courses_constraints_one_per_quarter_sat():
         ]
     )
     
-    constrainProfile = Profile(max_quarter_units=5)
+    constrainProfile = Profile(id="ID", max_quarter_units=5)
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
@@ -52,7 +52,7 @@ def test_add_required_courses_constraints_one_per_quarter_unsat():
         ]
     )
 
-    constrainProfile = Profile(max_quarter_units=4)
+    constrainProfile = Profile(id="ID", max_quarter_units=4)
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
@@ -74,7 +74,7 @@ def test_add_required_courses_constraints_multiple_per_quarter_sat():
         ]
     )
     
-    constrainProfile = Profile(max_quarter_units=10)
+    constrainProfile = Profile(id="ID", max_quarter_units=10)
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
@@ -96,7 +96,7 @@ def test_add_required_courses_constraints_multiple_per_quarter_unsat():
         ]
     )
     
-    constrainProfile = Profile(max_quarter_units=10)
+    constrainProfile = Profile(id="ID", max_quarter_units=10)
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
@@ -110,7 +110,7 @@ def test_add_prerequisite_constraints_simple_sat():
     C4 = Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SPRING], prereqs=[C3])
     
     degreeProgram = Program(id="ID", required_courses=[C1, C2, C3, C4])
-    constrainProfile = Profile(max_quarter_units=20)
+    constrainProfile = Profile(id="ID", max_quarter_units=20)
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
@@ -125,7 +125,7 @@ def test_add_prerequisite_constraints_simple_unsat():
     C4 = Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SPRING], prereqs=[C3])
     
     degreeProgram = Program(id="ID", required_courses=[C1, C2, C3, C4])
-    constrainProfile = Profile(max_quarter_units=20)
+    constrainProfile = Profile(id="ID", max_quarter_units=20)
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
@@ -139,7 +139,7 @@ def test_changing_profile_max_quarter_units_sat_unsat():
     C4 = Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SPRING], prereqs=[C3])
     
     degreeProgram = Program(id="ID", required_courses=[C1, C2, C3, C4])
-    constrainProfile = Profile(max_quarter_units=20)
+    constrainProfile = Profile(id="ID", max_quarter_units=20)
     
     # Creating and configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)

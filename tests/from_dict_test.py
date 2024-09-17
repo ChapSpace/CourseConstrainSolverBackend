@@ -79,6 +79,7 @@ def test_program_from_dict():
 def test_profile_from_dict():
     
     profile = Profile(
+        id="ID",
         max_quarter_units=20,
         min_quarter_units=12
     )
@@ -88,5 +89,6 @@ def test_profile_from_dict():
     profile_from_dict = Profile.from_dict(profile_dict)
     
     assert type(profile_from_dict) == Profile
+    assert profile.id == profile_from_dict.id
     assert profile.max_quarter_units == profile_from_dict.max_quarter_units
     assert profile.min_quarter_units == profile_from_dict.min_quarter_units
