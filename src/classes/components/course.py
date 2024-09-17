@@ -70,33 +70,40 @@ class Course:
             "grading": getattr(self._grading, "name", None)
         }
     
+    @classmethod
     def from_dict(cls, dict) -> 'Course':
         return cls(
             code=dict.get("code"),
             title=dict.get("title"),
             units=dict.get("units"),
             description=dict.get("description"),
-            prereqs=[], # Populate
-            coreqs=[], # Populate
-            offered_quarters=[], # Populate
+            prereqs=[cls.from_dict(course_dict) for course_dict in dict.get("prereqs")],
+            coreqs=[cls.from_dict(course_dict) for course_dict in dict.get("coreqs")],
+            offered_quarters=[Quarter[quarter_name] for quarter_name in dict.get("offered_quarters")], 
             instructors=dict.get("instructors"),
             median_hrs=dict.get("median_hrs"),
-            median_grade=None, # Populate,
+            median_grade=Grade[dict.get("median_grade")] if dict.get("median_grade") != None else None,
             percent_A_A_plus=dict.get("percent_A_A_plus"),
-            ug_reqs=[], # Populate
-            grading=None # Populate
+            ug_reqs=[GER[ger_name] for ger_name in dict.get("ug_reqs")],
+            grading=Grading[dict.get("grading")] if dict.get("grading") != None else None
         )
         
-        
-
     @property
     def code(self) -> str:
         return self._code
+
+    @property
+    def title(self) -> str:
+        return self._title
     
     @property
     def units(self) -> Union[int, tuple[int, int]]:
         """Return the course units."""
         return self._units
+
+    @property
+    def description(self) -> str:
+        return self._description
     
     @property
     def prereqs(self) -> List['Course']:
@@ -149,3 +156,7 @@ class Course:
     def ug_reqs(self) -> Optional[List[GER]]:
         """Return the undergraduate requirements or None."""
         return self._ug_reqs
+
+    @property
+    def grading(self) -> Grading:
+        return self._grading
