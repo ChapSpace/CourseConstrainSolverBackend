@@ -11,6 +11,11 @@ class Program:
             "required_courses": [course.to_dict() for course in self._required_courses]
         }
     
+    @classmethod
+    def from_dict(cls, dict) -> 'Program':
+        return cls(
+            required_courses=[Course.from_dict(course_dict) for course_dict in dict.get("required_courses")]
+        )
     
     @property
     def required_courses(self) -> List[Course]:
