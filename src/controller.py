@@ -54,14 +54,32 @@ def solve_user_schedule():
 def post_program():
     
     # Accessing DB and collection
-    db = client.Scheduler
+    db = client.SchedulerDB
     collection = db.Programs
     
+    # Pseudo validation (Add real validation)
     request_json = request.json
     program = Program.from_dict(request_json)
     program_insert = program.to_dict()
     
     inserted_id = collection.insert_one(program_insert).inserted_id
+    inserted_string = f"Inserted ID: {inserted_id}"
+    
+    return jsonify({"result": inserted_string}), 200
+
+@app.post('/post-profile')
+def post_profile():
+    
+    # Accessing DB and collection
+    db = client.SchedulerDB
+    collection = db.Profiles
+    
+    # Pseudo validation (Add real validation)
+    request_json = request.json
+    profile = Profile.from_dict(request_json)
+    profile_insert = profile.to_dict()
+    
+    inserted_id = collection.insert_one(profile_insert).inserted_id
     inserted_string = f"Inserted ID: {inserted_id}"
     
     return jsonify({"result": inserted_string}), 200
