@@ -77,14 +77,14 @@ class Course:
             title=dict.get("title"),
             units=dict.get("units"),
             description=dict.get("description"),
-            prereqs=[cls.from_dict(course_dict) for course_dict in dict.get("prereqs")],
-            coreqs=[cls.from_dict(course_dict) for course_dict in dict.get("coreqs")],
-            offered_quarters=[Quarter[quarter_name] for quarter_name in dict.get("offered_quarters")], 
+            prereqs=[cls.from_dict(course_dict) for course_dict in dict.get("prereqs")] if dict.get("prereqs") != None else [],
+            coreqs=[cls.from_dict(course_dict) for course_dict in dict.get("coreqs")] if dict.get("coreqs") != None else [],
+            offered_quarters=[Quarter[quarter_name] for quarter_name in dict.get("offered_quarters")] if dict.get("offered_quarters") != None else [], 
             instructors=dict.get("instructors"),
             median_hrs=dict.get("median_hrs"),
             median_grade=Grade[dict.get("median_grade")] if dict.get("median_grade") != None else None,
             percent_A_A_plus=dict.get("percent_A_A_plus"),
-            ug_reqs=[GER[ger_name] for ger_name in dict.get("ug_reqs")],
+            ug_reqs=[GER[ger_name] for ger_name in dict.get("ug_reqs")] if dict.get("ug_reqs") != None else [],
             grading=Grading[dict.get("grading")] if dict.get("grading") != None else None
         )
         

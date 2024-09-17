@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from classes.constrain.program import Program
 from classes.constrain.profile import Profile
 from classes.solver_config import SolverConfig
@@ -49,20 +49,16 @@ def solve_user_schedule():
     return jsonify({"schedule": scheduleString}), 200
 
 
-@app.post('/post-test')
-def post_test():
+# Insert a program document into DB
+@app.post('/post-program')
+def post_program():
     
     # Accessing DB and collection
     db = client.test_DB
     collection = db.test_collection
     
-    # Setting up classes
-    C1 = Course(code='C1', units=5, offered_quarters=[Quarter.FRESH_FALL])
-    C2 = Course(code='C2', units=5, offered_quarters=[Quarter.FRESH_WINTER])
-    C3 = Course(code='C3', units=5, offered_quarters=[Quarter.FRESH_SPRING])
-    C4 = Course(code='C4', units=5, offered_quarters=[Quarter.FRESH_SUMMER])
-    
-    program = Program(required_courses=[C1, C2, C3, C4])
+    request_json = request.json
+    program = Program.from_dict(request_json)
     program_insert = program.to_dict()
     
     inserted_id = collection.insert_one(program_insert).inserted_id

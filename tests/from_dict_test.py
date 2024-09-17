@@ -40,6 +40,21 @@ def test_course_from_dict_all_fields_populated():
     assert course.ug_reqs == course_from_dict.ug_reqs
     assert course.grading == course_from_dict.grading
 
+def test_course_from_dict_some_field_unpopulated():
+    
+    course = Course(
+        code="CODE",
+        title="TITLE"
+    )
+    
+    course_dict = course.to_dict()
+    
+    course_from_dict = Course.from_dict(course_dict)
+    
+    assert type(course_from_dict) == Course
+    assert course.code == course_from_dict.code
+    assert course.title == course_from_dict.title
+
 def test_program_from_dict():
     
     program = Program(
