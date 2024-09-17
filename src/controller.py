@@ -1,10 +1,25 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from classes.constrain.program import Program
 from classes.constrain.profile import Profile
 from classes.solver_config import SolverConfig
+from pymongo import MongoClient
+from classes.components.course import Course
+from classes.components.enums import Quarter
+import json
 
 # Mock database
 from mock_db import MockDB
+
+def load_app_settings(file_path='appsettings.json'):
+    with open(file_path, 'r') as file:
+        app_settings = json.load(file)
+        return app_settings
+    
+# Database testing
+app_settings = load_app_settings()
+connection_string = app_settings["DatabaseConnection"]["ConnectionString"]
+client = MongoClient(connection_string)
+
 
 app = Flask(__name__)
 
@@ -20,8 +35,6 @@ def solve_user_schedule():
     
     # Configuring solver
     scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
-    scheduleSolver.add_required_courses_constraints()
-    scheduleSolver.add_quarter_load_constraints()
     
     # Solving and creating output
     schedule = scheduleSolver.solve()
@@ -34,7 +47,42 @@ def solve_user_schedule():
     
     # Returning
     return jsonify({"schedule": scheduleString}), 200
+
+
+# Insert a program document into DB
+@app.post('/post-program')
+def post_program():
     
+    # Accessing DB and collection
+    db = client.SchedulerDB
+    collection = db.Programs
+    
+    # Pseudo validation (Add real validation)
+    request_json = request.json
+    program = Program.from_dict(request_json)
+    program_insert = program.to_dict()
+    
+    inserted_id = collection.insert_one(program_insert).inserted_id
+    inserted_string = f"Inserted ID: {inserted_id}"
+    
+    return jsonify({"result": inserted_string}), 200
+
+@app.post('/post-profile')
+def post_profile():
+    
+    # Accessing DB and collection
+    db = client.SchedulerDB
+    collection = db.Profiles
+    
+    # Pseudo validation (Add real validation)
+    request_json = request.json
+    profile = Profile.from_dict(request_json)
+    profile_insert = profile.to_dict()
+    
+    inserted_id = collection.insert_one(profile_insert).inserted_id
+    inserted_string = f"Inserted ID: {inserted_id}"
+    
+    return jsonify({"result": inserted_string}), 200
 
 app.run(debug=True)
     

@@ -59,3 +59,4 @@ class Grade(Enum):
 class Grading(Enum):
     LETTER = "letter"
     C_NC = "credit/no credit"
+    MIXED = "letter or credit/no credit"
