@@ -16,6 +16,13 @@ class Profile:
             "min_quarter_units": self._min_quarter_units
         }
         
+    @classmethod
+    def from_dict(cls, dict) -> 'Profile':
+        return cls(
+            max_quarter_units=dict.get("max_quarter_units"),
+            min_quarter_units=dict.get("min_quarter_units")
+        )
+        
     @property
     def max_quarter_units(self) -> int:
         return self._max_quarter_units

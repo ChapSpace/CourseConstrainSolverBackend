@@ -58,3 +58,18 @@ def test_program_from_dict():
     assert program.required_courses[0].title == program_from_dict.required_courses[0].title
     assert program.required_courses[1].code == program_from_dict.required_courses[1].code
     assert program.required_courses[1].title == program_from_dict.required_courses[1].title
+
+def test_profile_from_dict():
+    
+    profile = Profile(
+        max_quarter_units=20,
+        min_quarter_units=12
+    )
+    
+    profile_dict = profile.to_dict()
+    
+    profile_from_dict = Profile.from_dict(profile_dict)
+    
+    assert type(profile_from_dict) == Profile
+    assert profile.max_quarter_units == profile_from_dict.max_quarter_units
+    assert profile.min_quarter_units == profile_from_dict.min_quarter_units
