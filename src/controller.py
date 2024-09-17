@@ -26,15 +26,26 @@ app = Flask(__name__)
 @app.get('/solve-user-schedule')
 def solve_user_schedule():
     
-    # Initialize mock database
-    database = MockDB()
+    # Extracting URL parameters
+    program_id = request.args.get("program")
+    profile_id = request.args.get("profile")
     
-    # Pulling data from mock database
-    degreeProgram = database.program
-    constrainProfile = database.profile
+    # Accessing collections
+    db = client["SchedulerDB"]
+    program_collection = db["Programs"]
+    profile_collection = db["Profiles"]
     
+    # Pulling documents
+    program_dict = program_collection.find_one({"id": program_id})
+    profile_dict = profile_collection.find_one({"id": profile_id})
+    
+    # Converting to objects
+    program_obj = Program.from_dict(program_dict)
+    profile_obj = Profile.from_dict(profile_dict)
+    
+    # TODO: Add validation to objects (most immediately course) to make sure they have necessary fields
     # Configuring solver
-    scheduleSolver = SolverConfig(program=degreeProgram, profile=constrainProfile)
+    scheduleSolver = SolverConfig(program=program_obj, profile=profile_obj)
     
     # Solving and creating output
     schedule = scheduleSolver.solve()
@@ -54,8 +65,8 @@ def solve_user_schedule():
 def post_program():
     
     # Accessing DB and collection
-    db = client.SchedulerDB
-    collection = db.Programs
+    db = client["SchedulerDB"]
+    collection = db["Programs"]
     
     # Pseudo validation (Add real validation)
     request_json = request.json
@@ -71,8 +82,8 @@ def post_program():
 def post_profile():
     
     # Accessing DB and collection
-    db = client.SchedulerDB
-    collection = db.Profiles
+    db = client["SchedulerDB"]
+    collection = db["Profiles"]
     
     # Pseudo validation (Add real validation)
     request_json = request.json

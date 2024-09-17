@@ -16,7 +16,7 @@ class Program:
     @classmethod
     def from_dict(cls, dict) -> 'Program':
         return cls(
-            required_courses=[Course.from_dict(course_dict) for course_dict in dict.get("required_courses")],
+            required_courses=[Course.from_dict(course_dict) for course_dict in dict.get("required_courses")] if dict.get("required_courses") != None else [],
             id=dict.get("id")
         )
     
