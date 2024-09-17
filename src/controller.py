@@ -54,8 +54,8 @@ def solve_user_schedule():
 def post_program():
     
     # Accessing DB and collection
-    db = client.test_DB
-    collection = db.test_collection
+    db = client.Scheduler
+    collection = db.Programs
     
     request_json = request.json
     program = Program.from_dict(request_json)
