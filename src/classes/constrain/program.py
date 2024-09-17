@@ -3,26 +3,26 @@ from typing import List, Dict, Any
 
 class Program:
     """Degree program with required courses."""
-    def __init__(self, name: str, required_courses: List[Course]):
+    def __init__(self, id: str, required_courses: List[Course]):
         self._required_courses = required_courses
-        self._name = name
+        self._id = id
     
     def to_dict(self) -> Dict[str, Any]:
         return {
             "required_courses": [course.to_dict() for course in self._required_courses],
-            "name": self._name
+            "id": self._id
         }
     
     @classmethod
     def from_dict(cls, dict) -> 'Program':
         return cls(
             required_courses=[Course.from_dict(course_dict) for course_dict in dict.get("required_courses")],
-            name=dict.get("name")
+            id=dict.get("id")
         )
     
     @property
-    def name(self) -> str:
-        return self._name
+    def id(self) -> str:
+        return self._id
     
     @property
     def required_courses(self) -> List[Course]:
