@@ -99,7 +99,9 @@ def test_course_to_dict_optional_fields_empty():
     
 def test_program_to_dict():
     
-    program = Program(required_courses=[
+    program = Program(
+        name="NAME",
+        required_courses=[
             Course(
                 code="CODE1",
                 title="TITLE1",
@@ -136,6 +138,7 @@ def test_program_to_dict():
     program_dict = program.to_dict()
     
     expected_dict = {
+        "name": "NAME",
         "required_courses": [
             {
                 "code": "CODE1",

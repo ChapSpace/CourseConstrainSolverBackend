@@ -58,6 +58,7 @@ def test_course_from_dict_some_field_unpopulated():
 def test_program_from_dict():
     
     program = Program(
+        name="NAME",
         required_courses=[
             Course(code="C1", title="Course 1"),
             Course(code="C2", title="Course 2")
@@ -69,6 +70,7 @@ def test_program_from_dict():
     program_from_dict = Program.from_dict(program_dict)
     
     assert type(program_from_dict) == Program
+    assert program.name == program_from_dict.name
     assert program.required_courses[0].code == program_from_dict.required_courses[0].code
     assert program.required_courses[0].title == program_from_dict.required_courses[0].title
     assert program.required_courses[1].code == program_from_dict.required_courses[1].code
