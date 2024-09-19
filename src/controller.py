@@ -7,8 +7,6 @@ from classes.components.course import Course
 from classes.components.enums import Quarter
 import json
 
-# Mock database
-from mock_db import MockDB
 
 def load_app_settings(file_path='appsettings.json'):
     with open(file_path, 'r') as file:
@@ -35,6 +33,7 @@ def solve_user_schedule():
     program_collection = db["Programs"]
     profile_collection = db["Profiles"]
     
+    # TODO: Add null checking
     # Pulling documents
     program_dict = program_collection.find_one({"id": program_id})
     profile_dict = profile_collection.find_one({"id": profile_id})
