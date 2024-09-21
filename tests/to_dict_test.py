@@ -99,7 +99,9 @@ def test_course_to_dict_optional_fields_empty():
     
 def test_program_to_dict():
     
-    program = Program(required_courses=[
+    program = Program(
+        id="ID",
+        required_courses=[
             Course(
                 code="CODE1",
                 title="TITLE1",
@@ -136,6 +138,7 @@ def test_program_to_dict():
     program_dict = program.to_dict()
     
     expected_dict = {
+        "id": "ID",
         "required_courses": [
             {
                 "code": "CODE1",
@@ -238,11 +241,12 @@ def test_program_to_dict():
     
 def test_profile_to_dict():
     
-    profile = Profile(max_quarter_units=20, min_quarter_units=12)
+    profile = Profile(id="ID", max_quarter_units=20, min_quarter_units=12)
     
     profile_dict = profile.to_dict()
     
     expected_dict = {
+        "id": "ID",
         "max_quarter_units": 20,
         "min_quarter_units": 12
     }
