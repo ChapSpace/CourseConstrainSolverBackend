@@ -8,6 +8,13 @@ Best practice for development is to create a new branch for whatever you're work
 git checkout -b [BRANCH NAME]
 ```
 
+To enable linting, autocomplete, and code navigation in tests/, add the following to your .vscode/settings.json file.
+```
+"python.analysis.extraPaths": [
+        "./src"
+]
+```
+
 Example:
 ```
 git checkout -b ali/test-cases
