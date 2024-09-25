@@ -2,6 +2,7 @@ from classes.components.course import Course
 from classes.constrain.program import Program
 from classes.constrain.profile import Profile
 from classes.components.enums import Quarter, GER, Grade, Grading
+from classes.components.pool import Pool
 
 def test_course_to_dict_all_fields_populated():
     
@@ -252,7 +253,20 @@ def test_profile_to_dict():
     }
     
     assert profile_dict == expected_dict
+
+def test_course_pool_to_dict():
     
+    course_pool = Pool(type="Course", objects=["C1", "C2", "C3"], num_required=2)
+    
+    course_pool_dict = course_pool.to_dict()
+    
+    expected_dict ={
+        "type": "Course",
+        "objects": ["C1", "C2", "C3"],
+        "num_required": 2
+    }
+    
+    assert course_pool_dict == expected_dict
     
     
     

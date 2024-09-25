@@ -18,14 +18,14 @@ class Pool:
     def to_dict(self) -> Dict[str, Any]:
         return {
             "type": self._type,
-            "objects": [obj.to_dict() for obj in self._objects] if self._type == "Course" else self._objects,
+            "objects": [obj.to_dict() for obj in self._objects] if self._type == "Pool" else self._objects,
             "num_required": self._num_required
         }
     
     def from_dict(cls, dict) -> 'Pool':       
         return cls(
             type=dict.get("type"),
-            objects=[Course.from_dict(course_dict) for course_dict in dict.get("objects")] if dict.get("type") == "Course" else dict.get("objects"),
+            objects=[Pool.from_dict(pool_dict) for pool_dict in dict.get("objects")] if dict.get("type") == "Pool" else dict.get("objects"),
             num_required=dict.get("num_required")
         )
     
