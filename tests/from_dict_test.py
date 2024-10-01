@@ -2,6 +2,7 @@ from classes.components.course import Course
 from classes.constrain.program import Program
 from classes.constrain.profile import Profile
 from classes.components.enums import Quarter, GER, Grade, Grading
+from classes.components.pool import Pool
 
 def test_course_from_dict_all_fields_populated():
     
@@ -62,6 +63,13 @@ def test_program_from_dict():
         required_courses=[
             Course(code="C1", title="Course 1"),
             Course(code="C2", title="Course 2")
+        ],
+        pools=[
+            Pool(
+                type="Course",
+                objects=["C1", "C2", "C3"],
+                num_required=2
+            )
         ]
     )
     
@@ -75,6 +83,7 @@ def test_program_from_dict():
     assert program.required_courses[0].title == program_from_dict.required_courses[0].title
     assert program.required_courses[1].code == program_from_dict.required_courses[1].code
     assert program.required_courses[1].title == program_from_dict.required_courses[1].title
+    assert program.pools[0].type == program_from_dict.pools[0].type
 
 def test_profile_from_dict():
     

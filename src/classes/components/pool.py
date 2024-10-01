@@ -22,6 +22,7 @@ class Pool:
             "num_required": self._num_required
         }
     
+    @classmethod
     def from_dict(cls, dict) -> 'Pool':       
         return cls(
             type=dict.get("type"),
