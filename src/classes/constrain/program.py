@@ -12,7 +12,7 @@ class Program:
         pools (List[Pool]): The pool requirements that must be satisfied to complete the program
     
     """
-    def __init__(self, id: str, required_courses: List[Course], pools: List[Pool]):
+    def __init__(self, id: str, required_courses: List[Course], pools: List[Pool] = None):
         self._id = id
         self._required_courses = required_courses
         self._pools = pools
